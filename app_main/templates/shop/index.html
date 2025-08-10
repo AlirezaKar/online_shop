@@ -1,0 +1,28 @@
+{% extends 'base/base.html' %}
+{% block content %}
+<br>
+<h1 align="center">SHOP</h1>
+<div class="container">
+    <h2>API: <a href="{% url 'api_page_view' %}">REST</a> | <a href="api/swagger">swagger</a> | <a href="api/redoc">redoc</a></h2>
+
+    <div class="row">
+        {% for product in products %}
+        
+        <div class="image">
+            {% for image in product.files.all %}
+            <a href="{{ image.file.url }}"><img src="{{ image.file.url }}" alt="image" width=200px height=200px></a>
+            {% endfor%}
+        </div>
+        <h3>{{ product.name }} | {{ product.price }}$</h3>
+        <h5>{{ product.user }}</h5>
+        <p>{{ product.description|slice:"100"|safe }}</p>
+        <p>-----------------------------</p>
+        <h5>rating: {{ product.rating }}</h5>
+        <a href="{% url 'product_detail_view' product.id %}">More Info</a>
+        <hr>
+        <br>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
